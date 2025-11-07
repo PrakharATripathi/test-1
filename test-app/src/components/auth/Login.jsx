@@ -28,13 +28,23 @@ const Login = () => {
   const handleChange = (e) => {
     setCredentials({
       ...credentials,
-      [e.target.name]: e.target.value.trim()
+      [e.target.name]: e.target.value
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(credentials));
+    
+    const trimmedCredentials = {
+      username: credentials.username.trim(),
+      password: credentials.password.trim()
+    };
+
+    if (!trimmedCredentials.username || !trimmedCredentials.password) {
+      return;
+    }
+
+    dispatch(loginUser(trimmedCredentials));
   };
 
   return (
